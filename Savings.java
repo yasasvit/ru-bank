@@ -1,7 +1,7 @@
 public class Savings extends Account {
     private static final double INTEREST_RATE = 0.02;
     private static final double FEE = 2.0;
-    private boolean isLoyal; // Loyal customer status
+    protected boolean isLoyal; // Loyal customer status
 
     public Savings(Profile holder, double balance, boolean isLoyal) {
         super(holder, balance);
