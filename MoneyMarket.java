@@ -1,7 +1,7 @@
 public class MoneyMarket extends Savings {
     private static final double INTEREST_RATE = 0.03;
     private static final double FEE = 3.0;
-    private int withdrawal; // Number of withdrawals
+    int withdrawal; // Number of withdrawals
 
     public MoneyMarket(Profile holder, double balance, boolean isLoyal, int withdrawal) {
         super(holder, balance, isLoyal);
