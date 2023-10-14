@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class AccountDatabase {
     private Account[] accounts;
     private int size;
@@ -60,7 +62,7 @@ public class AccountDatabase {
     }
 
     public void printAccountsSorted() {
-        Arrays.sort(accounts, 0, size, new AccountComparator());
+        Arrays.sort(accounts, 0, size);
         for (int i = 0; i < size; i++) {
             System.out.println(accounts[i]);
         }
