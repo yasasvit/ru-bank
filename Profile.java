@@ -1,40 +1,47 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class Profile {
+public class Profile implements Comparable<Profile>{
     private String fname;
     private String lname;
     private Date dob;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-    public Profile(String fname, String lname, Date dob) throws ParseException {
+    public Profile(String fname, String lname, Date dob) {
         this.fname = fname;
         this.lname = lname;
-        this.dob = dateFormat.parse(String.valueOf(dob));
+        this.dob = dob;
     }
 
-    public String getFullName() {
-        return fname + " " + lname;
+    public String getFname() {
+        return fname;
     }
-
+    public String getLname() {
+        return lname;
+    }
     public Date getDob() {
+
         return dob;
     }
+    public String getFullName() {
 
-    public String getFormattedDob() {
-        return dateFormat.format(dob);
+        return fname + " " + lname;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         Profile other = (Profile) obj;
-        return fname.equalsIgnoreCase(other.fname) &&
-                lname.equalsIgnoreCase(other.lname) &&
-                dob.equals(other.dob);
+        if (!fname.equals(other.fname)) {
+            return false;
+        }
+        if (!lname.equals(other.lname)) {
+            return false;
+        }
+        if (!dob.equals(other.dob)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -44,9 +51,12 @@ public class Profile {
         result = 31 * result + dob.hashCode();
         return result;
     }
-
     @Override
     public String toString() {
-        return getFullName() + " " + getFormattedDob();
+        return getFullName() + " " + dob.toString();
+    }
+    @Override
+    public int compareTo(Profile other) {
+        return this.getFullName().compareTo(other.getFullName());
     }
 }

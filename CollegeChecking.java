@@ -1,6 +1,7 @@
-import java.text.ParseException;
-
 public class CollegeChecking extends Checking {
+    private static final double ANNUAL_INTEREST_RATE = 0.01;
+    private static final double MONTHLY_FEE = 0.0;
+
     private int campusCode;
 
     public CollegeChecking(Profile holder, double balance, int campusCode) {
@@ -14,53 +15,42 @@ public class CollegeChecking extends Checking {
 
     @Override
     public String getAccountType() {
+
         return "CC";
     }
 
     @Override
-    public double monthlyInterest() {
-        return getBalance() * 0.03 / 12;
-    }
-
-    @Override
     public double monthlyFee() {
-        switch (campusCode) {
-            case 0:
-                return 0;
-            case 1:
-                return 10;
-            case 2:
-                return 20;
-            default:
-                return 25;
-        }
+        // no monthly fee for college checking
+        return MONTHLY_FEE;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof CollegeChecking) {
             CollegeChecking other = (CollegeChecking) obj;
-            return super.equals(other) && this.campusCode == other.campusCode;
+            return super.equals(other);
         }
         return false;
     }
 
     @Override
     public String toString() {
-        String campus;
+        String campus = "";
         switch (campusCode) {
             case 0:
-                campus = "New Brunswick";
+                campus = "NEW_BRUNSWICK";
                 break;
             case 1:
-                campus = "Newark";
+                campus = "NEWARK";
                 break;
             case 2:
-                campus = "Camden";
+                campus = "CAMDEN";
                 break;
             default:
-                campus = "Invalid Campus Code";
+                break;
         }
-        return super.toString() + " Campus: " + campus;
+        return super.toString() + "::" + campus;
+
     }
 }

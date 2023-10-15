@@ -1,5 +1,3 @@
-import java.text.ParseException;
-
 public abstract class Account implements Comparable<Account> {
     protected Profile holder;
     protected double balance;
@@ -9,6 +7,8 @@ public abstract class Account implements Comparable<Account> {
         this.balance = balance;
     }
 
+    public abstract double monthlyInterest();
+    public abstract double monthlyFee();
     public Profile getHolder() {
         return holder;
     }
@@ -18,10 +18,6 @@ public abstract class Account implements Comparable<Account> {
     }
 
     public abstract String getAccountType();
-
-    public abstract double monthlyInterest();
-
-    public abstract double monthlyFee();
 
     public void deposit(double amount) {
         balance += amount;
@@ -37,17 +33,32 @@ public abstract class Account implements Comparable<Account> {
 
     @Override
     public int compareTo(Account other) {
-        int typeComparison = getAccountType().compareTo(other.getAccountType());
-        if (typeComparison != 0) return typeComparison;
+        int accountTypeComparison = this.getAccountType().compareTo(other.getAccountType());
+        if (accountTypeComparison != 0) {
+            return accountTypeComparison;
+        }
+        int lastNameComparison = this.getHolder().getLname().compareTo(other.getHolder().getLname());
 
-        return holder.getFullName().compareTo(other.holder.getFullName());
+        if (lastNameComparison != 0) {
+            return lastNameComparison;
+        }
+
+        int firstNameComparison = this.getHolder().getFname().compareTo(other.getHolder().getFname());
+
+        if (firstNameComparison != 0) {
+            return firstNameComparison;
+        }
+
+        return this.getHolder().getDob().compareTo(other.getHolder().getDob());
     }
+
+
+
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-
         Account other = (Account) obj;
         return holder.equals(other.holder);
     }
@@ -59,6 +70,11 @@ public abstract class Account implements Comparable<Account> {
 
     @Override
     public String toString() {
-        return holder.toString() + " Account Type: " + getAccountType() + " Balance: $" + balance;
+
+        return holder.toString() + String.format("::Balance $%,.2f", balance);
+
+    }
+
+    public void resetWithdrawals() {
     }
 }

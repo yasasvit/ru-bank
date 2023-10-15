@@ -1,20 +1,75 @@
 public class MoneyMarket extends Savings {
-    private static final double INTEREST_RATE = 0.03;
-    private static final double FEE = 3.0;
-    int withdrawal; // Number of withdrawals
+    private static final double ANNUAL_INTEREST_RATE = 0.045;
+    private static final double MONTHLY_FEE = 25.0;
+    private int withdrawal; // number of withdrawals
 
-    public MoneyMarket(Profile holder, double balance, boolean isLoyal, int withdrawal) {
-        super(holder, balance, isLoyal);
-        this.withdrawal = withdrawal;
+    public MoneyMarket(Profile holder, double balance) {
+        super(holder, balance, true);
+        withdrawal = 0;
+    }
+    @Override
+    public boolean withdraw(double amount) {
+        if (balance >= amount) {
+            withdrawal += 1;
+            balance -= amount;
+            if (balance < 2000) {
+                isLoyal = false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void deposit(double amount) {
+
+        balance += amount;
+        if (balance >= 2000) {
+            isLoyal = true;
+        }
+    }
+
+
+    @Override
+    public String getAccountType() {
+        return "MM";
     }
 
     @Override
     public double monthlyInterest() {
-        return isLoyal ? balance * INTEREST_RATE * 1.5 : balance * INTEREST_RATE;
+
+        double interestRate = ANNUAL_INTEREST_RATE;
+        if (isLoyal) {
+            interestRate += 0.0025;
+        }
+        return (balance * (interestRate / 12));
     }
 
     @Override
     public double monthlyFee() {
-        return withdrawal > 6 ? FEE : 0.0;
+
+        if (balance >= 2000) {
+            if (withdrawal > 3) {
+                return 10.0;
+            } else {
+                return 0.0;
+            }
+        } else {
+            isLoyal = false;
+            if (withdrawal > 3) {
+                return MONTHLY_FEE + 10.0;
+            } else {
+                return MONTHLY_FEE;
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "::withdrawal: " + withdrawal;
+    }
+    @Override
+    public void resetWithdrawals() {
+        withdrawal = 0;
     }
 }

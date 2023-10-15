@@ -1,6 +1,6 @@
 public class Checking extends Account {
-    private static final double INTEREST_RATE = 0.01;
-    private static final double FEE = 1.0;
+    private static final double ANNUAL_INTEREST_RATE = 0.01;
+    private static final double MONTHLY_FEE = 12.0;
 
     public Checking(Profile holder, double balance) {
         super(holder, balance);
@@ -8,16 +8,23 @@ public class Checking extends Account {
 
     @Override
     public String getAccountType() {
-        return null;
+        return "C";
     }
 
     @Override
     public double monthlyInterest() {
-        return balance * INTEREST_RATE;
+        // not sure if divide by 12
+        return balance * (ANNUAL_INTEREST_RATE / 12);
+//        return balance * INTEREST_RATE;
     }
 
     @Override
     public double monthlyFee() {
-        return FEE;
+
+        if (balance >= 1000) {
+            return 0;
+        } else {
+            return MONTHLY_FEE;
+        }
     }
 }

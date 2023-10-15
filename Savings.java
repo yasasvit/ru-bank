@@ -1,7 +1,7 @@
 public class Savings extends Account {
-    private static final double INTEREST_RATE = 0.02;
-    private static final double FEE = 2.0;
-    protected boolean isLoyal; // Loyal customer status
+    private static final double ANNUAL_INTEREST_RATE = 0.04;
+    private static final double MONTHLY_FEE = 25.0;
+    protected boolean isLoyal;
 
     public Savings(Profile holder, double balance, boolean isLoyal) {
         super(holder, balance);
@@ -10,16 +10,36 @@ public class Savings extends Account {
 
     @Override
     public String getAccountType() {
-        return null;
+        return "S";
     }
 
     @Override
     public double monthlyInterest() {
-        return isLoyal ? balance * INTEREST_RATE * 1.5 : balance * INTEREST_RATE;
+
+        double interestRate = ANNUAL_INTEREST_RATE;
+        if (isLoyal) {
+            interestRate += 0.0025;
+        }
+        return balance * (interestRate / 12);
     }
 
     @Override
     public double monthlyFee() {
-        return FEE;
+
+        if (balance >= 500) {
+            return 0;
+        } else {
+            return MONTHLY_FEE;
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        if (isLoyal) {
+            return super.toString() + "::is loyal";
+        } else {
+            return super.toString();
+        }
     }
 }
