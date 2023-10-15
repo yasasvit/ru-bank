@@ -166,9 +166,6 @@ public class Date implements Comparable<Date>{
     public String toString() {
         return month + "/" + day + "/" + year;
     }
-    /**
-     * Calls the different test cases
-     */
-    public static void main(String[] args) {
-    }
+
+
 }
