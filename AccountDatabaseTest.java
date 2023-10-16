@@ -1,7 +1,14 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+* This class is a JUnit test for the close method of the AccountDatabase class
+* @authors Yasasvi Tallapaneni, Pranav Gummaluri
+*/
+
+//creates an instance of the AccountDatabase class.
 class AccountDatabaseTest {
+
 
     @Test
     void close() {
