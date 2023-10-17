@@ -1,19 +1,16 @@
-/*
-* A JUnit test class used to test the isValid method of the Date class 
-* @authors Yasasvi Tallapaneni, Pranav Gummaluri
-*/
+package src;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * This class is a JUnit test for the isValid method of the Date class
+ * @authors Yasasvi Tallapaneni, Pranav Gummaluri
+ */
 class DateTest {
-    private Date validDate1;
-    private Date validDate2;
-    private Date invalidDate1;
-    private Date invalidDate2;
-    private Date invalidDate3;
-    private Date invalidDate4;
-    private Date invalidDate5;
 
+    /**
+     * Creates two valid dates to test the isValid() method of Date class
+     */
     @Test
     void testIsValidWithValidCases() {
         // Valid date for Leap year
@@ -24,7 +21,9 @@ class DateTest {
         Date validDate2 = new Date("3/15/2022");
         assertTrue(validDate2.isValid());
     }
-
+    /**
+     * Creates two five invalid dates to test the isValid() method of Date class
+     */
     @Test
     void testIsValidWithInvalidCases() {
         // Invalid date for Non-leap year
